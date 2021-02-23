@@ -1,0 +1,41 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter, Link, Route} from 'react-router-dom';
+import './index.css';
+import App from './App';
+// import reportWebVitals from './reportWebVitals';
+
+function render() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <BrowserRouter basename="/react">
+        <Link to="/">react-home</Link> | 
+        <Link to="/about">react-about</Link>
+
+        {/* exact 严格模式 */}
+        <Route path="/" exact render={() => <App />}></Route>
+        <Route path="/about" exact render={() => <div>react about page</div>}></Route>
+      
+      </BrowserRouter>
+      
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+if(!window.__POWERED_BY_QIANKUN__) {
+  render();
+}
+
+export async function bootstrap(props) { }
+export async function mount(props) {
+  render();
+}
+export async function unmount(props) {
+  ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+}
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
