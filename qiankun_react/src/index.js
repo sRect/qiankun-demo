@@ -36,7 +36,18 @@ export async function mount(props) {
   render();
 }
 export async function unmount(props) {
-  ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+  const { container } = props;
+
+  console.log("container===>", container);
+
+  ReactDOM.unmountComponentAtNode(
+    container ? container.querySelector("#root") : document.querySelector("#root")
+  );
+}
+
+// 增加 update 钩子以便主应用手动更新微应用
+export async function update(props) {
+  render(props);
 }
 
 // If you want to start measuring performance in your app, pass a function

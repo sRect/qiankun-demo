@@ -51,3 +51,8 @@ export async function unmount(props) {
   vueInstance && vueInstance.$destroy();
   vueInstance = null;
 }
+
+// 增加 update 钩子以便主应用手动更新微应用
+export async function update(props) {
+  render(props);
+}

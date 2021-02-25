@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import { registerMicroApps, start } from 'qiankun';
+import { registerMicroApps, start, prefetchApps } from "qiankun";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -34,11 +34,12 @@ const apps = [
   },
 ];
 
-registerMicroApps(apps); // 注册应用
+// registerMicroApps(apps); // 注册应用
+// prefetchApps([{ name: "jqueryApp", entry: "//localhost:5000/jquery" }]);
+
 // 启动应用
 start({
-  // https://qiankun.umijs.org/zh/api#startopts
-  prefetch: false, // 取消预加载
+  prefetch: true
 });
 
 new Vue({

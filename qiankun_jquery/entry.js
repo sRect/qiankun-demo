@@ -20,9 +20,18 @@ const render = ($) => {
 
       return render($);
     },
-    unmount: () => {
+    unmount: (props) => {
       console.log("purehtml unmount");
+      const {container} = props;
+      container
+        ? container.querySelector("#root")
+        : document.querySelector("#root");
+        
       return Promise.resolve();
     },
+    // 增加 update 钩子以便主应用手动更新微应用
+    update: (props) => {
+      render($);
+    }
   };
 })(window);
