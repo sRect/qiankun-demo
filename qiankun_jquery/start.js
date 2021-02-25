@@ -25,7 +25,7 @@ function readStaticFile(res, pathName) {
 const server = http.createServer(function (req, res) {
   // http://nodejs.cn/api/url.html
   let pathName = url.parse(req.url).pathname;
-  if (pathName === "/") pathName = "index.html";
+  if (pathName === "/" || pathName === "/jquery") pathName = "index.html";
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   // res.writeHead(200, { "Content-Type": mime.getType(pathName) });

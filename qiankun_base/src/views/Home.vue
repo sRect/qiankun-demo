@@ -29,7 +29,7 @@
               <div>jquery应用：</div>
               <!-- <div id="jquery"></div> -->
 
-              <!-- <JqueryCom /> -->
+              <JqueryCom />
             </div>
           </el-col>
         </el-row>

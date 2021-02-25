@@ -5,7 +5,10 @@ const render = ($) => {
   return Promise.resolve();
 };
 ((global) => {
-  global["purehtml"] = {
+  // global.__POWERED_BY_QIANKUN__ ||
+  //   (__webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__);
+
+  global["jqueryApp"] = {
     bootstrap: () => {
       console.log("purehtml bootstrap");
       return Promise.resolve();
@@ -22,16 +25,16 @@ const render = ($) => {
     },
     unmount: (props) => {
       console.log("purehtml unmount");
-      const {container} = props;
+      const { container } = props;
       container
         ? container.querySelector("#root")
         : document.querySelector("#root");
-        
+
       return Promise.resolve();
     },
     // 增加 update 钩子以便主应用手动更新微应用
     update: (props) => {
       render($);
-    }
+    },
   };
 })(window);
