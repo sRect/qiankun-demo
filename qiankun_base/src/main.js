@@ -28,6 +28,7 @@ const apps = [
     entry: "//localhost:5000",
     container: "#jquery",
     activeRule: "/jquery",
+    props: {a: 100, b: 200}
   },
 ];
 

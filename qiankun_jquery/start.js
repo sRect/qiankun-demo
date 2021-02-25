@@ -1,34 +1,109 @@
-const path = require('path');
-const fs = require('fs');
-// const liveServer = require("live-server");
+const path = require("path");
+const fs = require("fs");
+const http = require("http");
+const url = require("url");
+const mime = require("mime");
 
-// const params = {
-//   port: 5000, // Set the server port. Defaults to 8080.
-//   host: "localhost", // Set the address to bind to. Defaults to 0.0.0.0 or process.env.IP.
-//   root: "./", // Set root directory that's being served. Defaults to cwd.
-//   open: true, // When false, it won't load your browser by default.
-//   // ignore: "server.js,./file/", // comma-separated string for paths to ignore
-//   file: path.resolve(__dirname, './index.html'), // When set, serve this file for every 404 (useful for single-page applications)
-//   wait: 1000, // Waits for all changes, before reloading. Defaults to 0 sec.
-//   // mount: [['/components', './node_modules']], // Mount a directory to a route.
-//   logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
-//   middleware: [
-//     function (req, res, next) {
-//       next();
-//     },
-//   ], // Takes an array of Connect-compatible middleware that are injected into the server middleware stack
-// };
-// liveServer.start(params);
+function readStaticFile(res, pathName) {
+  const mimeType = mime.getType(pathName);
 
-const http = require('http')
+  if (!mimeType) return;
 
-http.createServer(function (request, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.writeHead(200, {'Content-Type': 'text/html'});
-
-  fs.readFile(path.resolve(__dirname, './index.html'), function (err, data) {
-    res.end(data);
+  fs.readFile(path.resolve(__dirname, `./${pathName}`), (err, data) => {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.write("404 NOT FOUND");
+      res.end();
+    } else {
+      res.writeHead(200, { "Content-Type": mimeType });
+      res.write(data);
+      res.end();
+    }
   });
-}).listen(5000, () => {
+}
+
+const server = http.createServer(function (req, res) {
+  // http://nodejs.cn/api/url.html
+  let pathName = url.parse(req.url).pathname;
+  if (pathName === "/") pathName = "index.html";
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.writeHead(200, { "Content-Type": mime.getType(pathName) });
+
+  // 读取静态文件
+  readStaticFile(res, pathName);
+});
+
+server.listen(5000, () => {
   console.log("Server running at http://127.0.0.1:5000/");
-})
+});
+
+
+// const path = require("path");
+// const fs = require("fs");
+// const Koa = require("koa");
+// const Router = require("koa-router");
+// const static = require("koa-static");
+// const bodyParser = require("koa-bodyparser");
+// const cors = require("koa2-cors");
+
+// // const formidable = require("formidable");
+// // const FormData = require("form-data");
+
+// const app = new Koa();
+// const router = new Router();
+
+// app.use(bodyParser());
+// app.use(static(path.resolve(__dirname, "./")));
+// app.use(
+//   cors({
+//     origin: (ctx) => {
+//       return "*";
+//     },
+//     methods: ["GET", "POST"],
+//     allowHeaders: ["Content-Type", "Authorization", "Accept"],
+//   })
+// ); // 允许跨域
+
+// app.use(async (ctx, next)=> {
+//   ctx.set('Access-Control-Allow-Origin', '*');
+//   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+//   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+//   if (ctx.method == 'OPTIONS') {
+//     ctx.body = 200; 
+//   } else {
+//     await next();
+//   }
+// });
+
+// const render = () => {
+//   // 读取首页
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(path.resolve(__dirname, "index.html"), "utf8", (err, data) => {
+//       if (err) {
+//         console.log(err);
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
+
+// router.get("/", async (ctx, next) => {
+//   ctx.response.type = "html";
+//   ctx.response.body = await render();
+
+//   next();
+// });
+
+// app.use(router.routes()).use(router.allowedMethods());
+
+// app.on("error", function (err) {
+//   console.log("logging error ", err.message);
+//   console.log(err);
+// });
+
+// app.listen(5000, () => {
+//   console.log(`Server running at http://127.0.0.1:5000/`);
+// });
