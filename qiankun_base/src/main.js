@@ -12,10 +12,12 @@ Vue.use(ElementUI);
 const apps = [
   {
     name: "vueApp",
-    entry: "http://localhost:8000", // 默认通过fetch加载这个html，解析里面的js，动态的执行（但同时子应用必须支持跨域）
+    // 默认通过fetch加载这个html，解析里面的js，动态的执行
+    // 注意：子应用必须支持跨域
+    entry: "http://localhost:8000",
     container: "#vueDOM", // 容器名
     activeRule: "/vue", // 激活路径
-    props: { a: 1, b: 2 },
+    props: { a: 1, b: 2 }, // 传给子应用的参数
   },
   {
     name: "reactApp",
@@ -28,14 +30,15 @@ const apps = [
     entry: "//localhost:5000",
     container: "#jquery",
     activeRule: "/jquery",
-    props: {a: 100, b: 200}
+    props: { a: 100, b: 200 },
   },
 ];
 
 registerMicroApps(apps); // 注册应用
 // 启动应用
 start({
-  prefetch: false // 取消预加载
+  // https://qiankun.umijs.org/zh/api#startopts
+  prefetch: false, // 取消预加载
 });
 
 new Vue({

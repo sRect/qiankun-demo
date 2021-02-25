@@ -37,4 +37,5 @@ export async function mount(props) {
 }
 export async function unmount(props) {
   vueInstance && vueInstance.$destroy();
+  vueInstance = null;
 }
