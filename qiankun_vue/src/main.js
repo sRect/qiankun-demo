@@ -32,7 +32,19 @@ if (!window.__POWERED_BY_QIANKUN__) {
 // 暴露3个异步方法 bootstrap mount unmount
 export async function bootstrap(props) { }
 export async function mount(props) { 
-  console.log('props=====>', props)
+  console.log('child_vue props=====>', props)
+
+  props.onGlobalStateChange((state, prev) => {
+    // state: 变更后的状态; prev 变更前的状态
+    console.log('child_vue props change=====>', state, prev);
+  });
+
+  setTimeout(() => {
+    props.setGlobalState({
+      a: 10000,
+    });
+  }, 1500)
+
   render(props);
 }
 export async function unmount(props) {
