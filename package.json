@@ -1,0 +1,20 @@
+{
+  "name": "qiankun-demo",
+  "version": "1.0.0",
+  "description": "> 1. [qiankun官方文档](https://qiankun.umijs.org/zh)\r > 2. [single-spa](https://zh-hans.single-spa.js.org/docs/getting-started-overview/)\r > 3. [微前端-最容易看懂的微前端知识](https://juejin.cn/post/6844904162509979662#heading-0)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sRect/qiankun-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sRect/qiankun-demo/issues"
+  },
+  "homepage": "https://github.com/sRect/qiankun-demo#readme"
+}
