@@ -1,21 +1,30 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 
 // Vue.config.productionTip = false
+
+Vue.use(ElementUI);
 
 let vueInstance = null;
 function render(props = {}) {
   const { container } = props;
 
   vueInstance = new Vue({
+    provide() {
+      return {
+        ...props,
+      };
+    },
     router,
-    render: h => h(App)
+    render: (h) => h(App),
     // 这里是挂载到自己的html上，基座会拿到这个挂载后的html，将其插入到相应的容器里
 
     // Application died in status NOT_MOUNTED: Target container with #container not existed after xxx mounted!
     // 微应用的根 id 与其他 DOM 冲突。解决办法是：修改根 id 的查找范围。
-  }).$mount(container ? container.querySelector('#app') : '#app'); 
+  }).$mount(container ? container.querySelector("#app") : "#app"); 
 }
 
 // 使用 webpack 运行时 publicPath 配置
@@ -39,11 +48,11 @@ export async function mount(props) {
     console.log('child_vue props change=====>', state, prev);
   });
 
-  setTimeout(() => {
-    props.setGlobalState({
-      a: 10000,
-    });
-  }, 1500)
+  // setTimeout(() => {
+  //   props.setGlobalState({
+  //     a: 10000,
+  //   });
+  // }, 1500)
 
   render(props);
 }

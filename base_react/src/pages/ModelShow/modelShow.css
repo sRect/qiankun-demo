@@ -1,0 +1,10 @@
+.modelWrap {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.modelWrap .adsk-viewing-viewer * {
+  box-sizing: content-box !important;
+}

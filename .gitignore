@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+base_react/public/model/
+base_react/public/forge7.14/

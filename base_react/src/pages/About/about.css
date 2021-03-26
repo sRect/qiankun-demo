@@ -1,0 +1,12 @@
+.about {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.about .item {
+  width: 33%;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
